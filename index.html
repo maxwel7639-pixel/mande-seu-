@@ -87,10 +87,10 @@ header{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.86);backdrop-filt
 .link2:hover{color:var(--fg)}
 /* form */
 .h2{font-size:32px;margin:14px 0 12px}
-.badge-out{display:inline-block;border:1px solid rgba(139,124,248,.4);color:#CFC8FF;border-radius:999px;padding:7px 14px;font-size:12px;font-weight:600}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px}
 .form{margin-top:30px;scroll-margin-top:80px}
 .h3f{font-size:25px;margin:14px 0 10px}
+.form .h3f:first-child{margin-top:0}
 label{display:block;font-size:13px;font-weight:600;color:#C6C6CE;margin:0 0 7px}
 input{width:100%;background:#141419;border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:15px 14px;color:var(--fg);font-family:inherit;font-size:15px;outline:none;transition:border-color .15s}
 input::placeholder{color:#5F5F6B}
@@ -189,6 +189,12 @@ section{padding:96px 0}
 
 /* ---------- sticky stack dos cards no mobile ---------- */
 @media(max-width:759px){
+/* copy do hero centralizada só no mobile — o formulário segue alinhado
+   à esquerda, que é o certo pra label/campo */
+.hero .eyebrow{display:block;text-align:center}
+.hero .h1{text-align:center}
+.hero .sub{text-align:center;margin-left:auto;margin-right:auto}
+
 /* grid-auto-rows:1fr iguala a altura das 4 linhas pela mais alta. Sem isso o
    card de trás, sendo mais alto, aparece por baixo do da frente e o
    empilhamento fica sujo. O padding-bottom dá folga pra pilha ficar montada
@@ -238,7 +244,6 @@ html{scroll-behavior:auto}
 <p class="sub">Site profissional pra psicólogos e terapeutas, sem reunião, sem briefing gigante.</p>
 
 <form class="card form" id="form" data-screen-label="Formulário">
-<span class="badge-out">Para psicólogos, terapeutas e profissionais da saúde mental</span>
 <h2 class="h3f">Receba a prévia do seu site novo no WhatsApp <span class="hl">ainda hoje.</span></h2>
 <p class="mut" style="font-size:14.5px;margin-bottom:22px">Se quiser ficar com ele e fazer alterações quando quiser, é só ativar. <b style="color:var(--fg);font-weight:600">Você vê o site pronto antes de decidir.</b></p>
 <div class="fields">
