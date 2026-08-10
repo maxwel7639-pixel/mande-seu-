@@ -13,8 +13,8 @@ index.html               a landing page inteira (HTML + CSS + JS inline, sem bui
 assets/logo-mx.png       logo da MX Digital (header + favicon + og:image)
 sites-imagens/           miniaturas da vitrine de sites entregues
   gabriela.webp
-  solange.png
-  cristiana.png
+  solange.webp
+  cristiana.webp
 ```
 
 Site 100% estático, sem dependências e sem etapa de build. As únicas requisições
@@ -26,26 +26,15 @@ Framework: **Other**. Build Command e Output Directory **vazios**.
 O `index.html` está na **raiz** do repositório, então o Root Directory fica no padrão
 (não precisa apontar para subpasta — aquele 404 clássico não acontece aqui).
 
-## ⚠️ Duas imagens da vitrine são placeholders
+## Imagens da vitrine
 
-`sites-imagens/gabriela.webp` é o print real do site da Gabriela Kanaan.
+Os três arquivos em `sites-imagens/` são prints reais dos sites entregues, todos em
+WebP com 806 px de largura (2× o tamanho em que o card aparece, para ficar nítido em
+tela retina). Juntos somam cerca de 63 KB.
 
-`sites-imagens/cristiana.png` e `sites-imagens/solange.png` **não são os prints reais** —
-são wireframes na paleta do site, usados para a página não ficar com imagem quebrada.
-Os arquivos originais no Claude Design passam de 256 KB e não puderam ser baixados
-pela sessão que gerou este repositório (limite da ferramenta).
-
-Para corrigir, é só sobrescrever os dois arquivos com os prints reais, mantendo os
-mesmos nomes e caminhos — não precisa mexer no HTML:
-
-```
-sites-imagens/cristiana.png    print de https://cristianastringhi.com.br
-sites-imagens/solange.png      print do site da Solange Kappes
-```
-
-Formato usado nas miniaturas: 806×383 (mesma proporção do print da Gabriela).
-Os cards recortam com `object-fit: cover` a partir do topo, então prints de página
-inteira também funcionam.
+Para trocar ou acrescentar um print: os cards recortam com `object-fit: cover` a
+partir do topo, então print de página inteira também funciona — o que aparece no card
+é a faixa de cima. Mantendo o mesmo nome de arquivo, não precisa mexer no HTML.
 
 ## Ajustes feitos em cima do design
 
