@@ -52,6 +52,31 @@ O HTML é fiel ao design. Além dele, foram incluídos:
   que chega é exatamente o mesmo, mas sem espaços e acentos crus na URL, que alguns
   navegadores embutidos (Instagram, Facebook) tratam mal.
 
+## Efeitos e interações
+
+Tudo em CSS + JS puro, sem biblioteca. Todos desligam sozinhos em
+`prefers-reduced-motion: reduce`.
+
+- **Sticky stack no mobile** (até 759px) — os 4 cards de "Como funciona" e os 3 da
+  vitrine grudam no topo em degraus de 12px e vão se empilhando conforme você rola.
+  Dois detalhes que fazem isso funcionar e que é bom não desfazer sem querer:
+  - `body` usa `overflow-x: clip`, não `hidden`. `hidden` transforma o body em
+    container de rolagem e o `position: sticky` para de funcionar.
+  - o `.grid` tem uma linha-fantasma (`grid-template-rows: repeat(4,1fr) 150px` +
+    `:after`). O retângulo que limita o sticky é o *content box* do grid, então
+    `padding-bottom` não estenderia o alcance — a linha extra estende. Sem ela os
+    4 cards ficam empilhados por 0px de rolagem em vez de 170px.
+  - `grid-auto-rows`/`1fr` iguala a altura dos cards. Com alturas diferentes o card
+    de trás aparece por baixo do da frente e a pilha fica suja.
+- **Tilt 3D** — cards giram até 6°/8° seguindo o cursor, com um brilho que acompanha.
+  Só liga em `(hover:hover) and (pointer:fine)`, ou seja, nunca em touch.
+- **Reveal no scroll** — IntersectionObserver com stagger (`.rv`, `.d1`–`.d3`).
+- **Barra de progresso** no topo e **parallax** no brilho do hero, ambos num único
+  listener de scroll com `requestAnimationFrame` e `passive: true`.
+- **FAQ acordeão** — um aberto por vez, `aria-expanded` no botão e `inert` nos
+  painéis fechados (para o leitor de tela e o Tab pularem o conteúdo escondido).
+  A altura anima com `grid-template-rows: 0fr → 1fr`, sem medir nada em JS.
+
 ## Número de destino
 
 O formulário aponta para `wa.me/5551991580526`. Para trocar, é o único lugar no

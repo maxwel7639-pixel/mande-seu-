@@ -25,7 +25,9 @@
 :root{--bg:#080808;--card:#0E0E11;--card2:#121216;--line:rgba(255,255,255,.09);--fg:#F4F4F6;--mut:#93939D;--pp:#6D5CF5;--pp2:#8B7CF8;--grad:linear-gradient(100deg,#6D5CF5,#8B7CF8)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+/* overflow-x:clip em vez de hidden — hidden transforma o body em container de
+   rolagem e quebra o position:sticky dos cards. clip corta igual, sem isso. */
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;overflow-x:clip}
 a{color:var(--pp2);text-decoration:none}
 a:hover{color:#A79BFB}
 .wrap{width:100%;max-width:520px;margin:0 auto;padding:0 22px}
@@ -116,7 +118,9 @@ input:focus{border-color:var(--pp)}
 /* vitrine */
 .showcase{display:grid;gap:12px;margin-top:26px}
 .work{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;color:inherit;transition:border-color .18s,transform .18s}
-.work:hover{border-color:rgba(139,124,248,.45);transform:translateY(-2px);color:inherit}
+/* o lift no hover agora vem do --ty do tilt; manter translateY aqui
+   sobrescreveria o rotateX/rotateY e mataria o efeito 3D */
+.work:hover{border-color:rgba(139,124,248,.45);color:inherit}
 .shot{aspect-ratio:16/10;background:#0A0A0C;overflow:hidden;border-bottom:1px solid var(--line)}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .work .meta{padding:16px 18px 18px}
@@ -129,6 +133,50 @@ input:focus{border-color:var(--pp)}
 .final p.pain{font-size:19px;font-family:"Cormorant Garamond",serif;line-height:1.25;margin:0 auto 10px;max-width:26ch}
 .final p.sub2{font-size:14.5px;color:var(--mut);max-width:32ch;margin:0 auto 26px}
 footer{padding:30px 0 44px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:#63636E}
+
+/* ---------- FAQ (acordeão) ---------- */
+.acc{margin-top:26px;border-top:1px solid var(--line)}
+.qa{border-bottom:1px solid var(--line)}
+.q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:none;border:0;padding:19px 2px;cursor:pointer;font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;font-weight:600;color:var(--fg);text-align:left;line-height:1.2}
+.q:hover{color:#CFC8FF}
+.q:focus-visible{outline:2px solid var(--pp2);outline-offset:3px;border-radius:6px}
+.chev{flex:none;width:20px;height:20px;position:relative;margin-top:3px}
+.chev:before,.chev:after{content:"";position:absolute;top:9px;left:3px;width:14px;height:2px;border-radius:2px;background:var(--pp2);transition:transform .3s cubic-bezier(.22,.7,.3,1)}
+.chev:after{transform:rotate(90deg)}
+.qa.open .chev:after{transform:rotate(0)}
+.a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.22,.7,.3,1)}
+.qa.open .a{grid-template-rows:1fr}
+.a-in{overflow:hidden}
+.a p{font-size:14.5px;color:var(--mut);padding:0 2px 20px;max-width:56ch}
+
+/* ---------- prova social ---------- */
+.proof{display:flex;justify-content:center;margin-top:14px}
+.gpill{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);border-radius:999px;padding:8px 16px;font-size:12.5px;color:#C6C6CE}
+.gpill b{color:var(--fg);font-weight:600}
+.gpill .st{color:#F5C451;letter-spacing:1px;font-size:11px}
+
+/* ---------- barra de progresso do scroll ---------- */
+.prog{position:fixed;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:0 50%;z-index:60;will-change:transform;pointer-events:none}
+
+/* ---------- reveal no scroll ---------- */
+.rv{opacity:0;transform:translate3d(0,20px,0);transition:opacity .62s cubic-bezier(.22,.7,.3,1),transform .62s cubic-bezier(.22,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.06s}.rv.d2{transition-delay:.12s}.rv.d3{transition-delay:.18s}
+
+/* ---------- 3D / tilt ---------- */
+.grid,.showcase{perspective:1100px}
+.step,.work{--rx:0deg;--ry:0deg;--ty:0px;--mx:50%;--my:50%;position:relative;transform:rotateX(var(--rx)) rotateY(var(--ry)) translate3d(0,var(--ty),0);transform-style:preserve-3d;transition:transform .4s cubic-bezier(.22,.7,.3,1),border-color .18s}
+.step.t-live,.work.t-live{transition:transform .12s linear,border-color .18s}
+/* brilho que segue o cursor */
+.step:after,.work:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx) var(--my),rgba(139,124,248,.16),transparent 62%)}
+.step.t-live:after,.work.t-live:after{opacity:1}
+.work .meta,.step .num,.step h3,.step p{transform:translateZ(26px)}
+.work .shot{transform:translateZ(14px)}
+.hero .h1,.hero .sub,.hero .eyebrow{transform:translateZ(0)}
+
+/* ---------- parallax do brilho do hero ---------- */
+.hero:before{transform:translate3d(0,calc(var(--sy,0px) * .18),0);will-change:transform}
+
 @media(min-width:760px){
 .wrap{max-width:660px}
 .h1{font-size:56px}.h2{font-size:40px}.h3f{font-size:30px}.sub{font-size:17px;max-width:40ch}
@@ -138,13 +186,44 @@ section{padding:96px 0}
 .site{max-width:320px}
 .form,.plan,.card{padding:28px 26px}
 }
+
+/* ---------- sticky stack dos cards no mobile ---------- */
+@media(max-width:759px){
+/* grid-auto-rows:1fr iguala a altura das 4 linhas pela mais alta. Sem isso o
+   card de trás, sendo mais alto, aparece por baixo do da frente e o
+   empilhamento fica sujo. O padding-bottom dá folga pra pilha ficar montada
+   um pouco antes do container acabar e soltar tudo de uma vez. */
+.grid{gap:16px;grid-template-rows:repeat(4,1fr) 150px}
+/* o ::after vira uma 5ª célula do grid e estica o content box, que é o
+   retângulo que limita o sticky. padding-bottom aqui não serve: ele fica
+   fora do content box e o sticky ignora. */
+.grid:after{content:""}
+.step{display:flex;flex-direction:column;box-shadow:0 -8px 30px -14px rgba(0,0,0,.9)}
+.step:nth-child(1){position:sticky;top:calc(var(--hh,58px) + 14px)}
+.step:nth-child(2){position:sticky;top:calc(var(--hh,58px) + 26px)}
+.step:nth-child(3){position:sticky;top:calc(var(--hh,58px) + 38px)}
+.step:nth-child(4){position:sticky;top:calc(var(--hh,58px) + 50px)}
+.showcase{gap:16px;grid-template-rows:repeat(3,auto) 130px}
+.showcase:after{content:""}
+.work{box-shadow:0 -8px 30px -14px rgba(0,0,0,.9)}
+.work:nth-child(1){position:sticky;top:calc(var(--hh,58px) + 14px)}
+.work:nth-child(2){position:sticky;top:calc(var(--hh,58px) + 26px)}
+.work:nth-child(3){position:sticky;top:calc(var(--hh,58px) + 38px)}
+}
+
+/* ---------- respeita quem pediu menos movimento no sistema ---------- */
 @media(prefers-reduced-motion:reduce){
 html{scroll-behavior:auto}
-*{transition:none!important}
+*{transition:none!important;animation:none!important}
+.rv{opacity:1;transform:none}
+.step,.work{transform:none}
+.hero:before{transform:none}
+.prog{display:none}
 }
 </style>
 </head>
 <body>
+<div class="prog" id="prog" aria-hidden="true"></div>
 <header>
 <div class="wrap hd">
 <div class="brand"><img class="mark" src="assets/logo-mx.png" alt="MX Digital" width="34" height="34" /><div class="bname">MX <i>Digital</i></div></div>
@@ -173,6 +252,18 @@ html{scroll-behavior:auto}
 
 <div style="display:flex;justify-content:center;margin-top:22px"><span class="badge"><i></i>Instagram + WhatsApp · Prévia ainda hoje</span></div>
 
+<!-- ============================================================
+     BADGE DE NOTA DO GOOGLE — está DESLIGADO de propósito.
+     Não inventei nota nem número de avaliações: isso é uma
+     afirmação pública sobre o negócio e precisa ser real.
+     Para ligar: troque 0,0 e 00 pelos números reais do perfil
+     do Google da MX Digital e apague o atributo hidden abaixo.
+     Se a MX ainda não tem perfil no Google, é só apagar o bloco.
+     ============================================================ -->
+<div class="proof" id="google-proof" hidden>
+<span class="gpill"><span class="st" aria-hidden="true">★★★★★</span><b>0,0</b> · 00 avaliações no Google</span>
+</div>
+
 <div class="cta-row">
 <a class="link2" href="#como">Saiba mais</a>
 </div>
@@ -180,30 +271,30 @@ html{scroll-behavior:auto}
 
 <section id="como" data-screen-label="Como funciona">
 <div class="wrap">
-<span class="eyebrow">Como funciona</span>
-<h2 class="h2">Do seu @ até o site no ar, em 4 passos</h2>
+<span class="eyebrow rv">Como funciona</span>
+<h2 class="h2 rv d1">Do seu @ até o site no ar, em 4 passos</h2>
 <div class="grid">
-<div class="step"><div class="num">1</div><h3>Você deixa o @ e o WhatsApp</h3><p>Nada de reunião, briefing de 40 perguntas ou espera de semanas.</p></div>
-<div class="step"><div class="num">2</div><h3>Nossa equipe estuda você</h3><p>Analisamos seu perfil, fotos, bio e presença no Google, tudo público, e desenhamos um site exclusivo.</p></div>
-<div class="step"><div class="num">3</div><h3>Você recebe a prévia no WhatsApp</h3><p>Não é imagem, é o site de verdade, no ar, funcionando no celular e no computador.</p></div>
-<div class="step"><div class="num">4</div><h3>Só ativa se quiser</h3><p>Sem contrato, sem fidelidade.</p></div>
+<div class="step rv d0"><div class="num">1</div><h3>Você deixa o @ e o WhatsApp</h3><p>Nada de reunião, briefing de 40 perguntas ou espera de semanas.</p></div>
+<div class="step rv d1"><div class="num">2</div><h3>Nossa equipe estuda você</h3><p>Analisamos seu perfil, fotos, bio e presença no Google, tudo público, e desenhamos um site exclusivo.</p></div>
+<div class="step rv d2"><div class="num">3</div><h3>Você recebe a prévia no WhatsApp</h3><p>Não é imagem, é o site de verdade, no ar, funcionando no celular e no computador.</p></div>
+<div class="step rv d3"><div class="num">4</div><h3>Só ativa se quiser</h3><p>Sem contrato, sem fidelidade.</p></div>
 </div>
 </div>
 </section>
 
 <section data-screen-label="Preço">
 <div class="wrap">
-<span class="eyebrow">Transparência total</span>
-<h2 class="h2">O que é grátis e o que é pago</h2>
+<span class="eyebrow rv">Transparência total</span>
+<h2 class="h2 rv d1">O que é grátis e o que é pago</h2>
 <div style="margin-top:26px">
-<div class="plan">
+<div class="plan rv d2">
 <h3>O que é grátis</h3>
 <div class="li"><span class="tick">✓</span><span><b>Ver o site pronto</b> — criado, publicado e no ar</span></div>
 <div class="li"><span class="tick">✓</span><span><b>Sem cartão de crédito</b> em nenhum momento da prévia</span></div>
 <div class="li"><span class="tick">✓</span><span><b>Sem contrato, sem fidelidade</b> — se não quiser, é só ignorar</span></div>
 <div class="li"><span class="tick">✓</span><span><b>Por que fazemos assim?</b> Confiamos no resultado — quem vê o próprio site pronto entende o valor na hora.</span></div>
 </div>
-<div class="plan pay">
+<div class="plan pay rv d3">
 <h3>Se gostar e quiser ativar</h3>
 <div class="li"><span class="tick">◆</span><span><span class="price">R$ 500 <small>em 2x de R$ 250</small></span>Ativação: site publicado, domínio configurado e ajustes finais.</span></div>
 <div class="li"><span class="tick">◆</span><span><span class="price">R$ 139 <small>/mês</small></span>Hospedagem, segurança e edições mensais quando você quiser.</span></div>
@@ -215,8 +306,8 @@ html{scroll-behavior:auto}
 
 <section data-screen-label="Vitrine">
 <div class="wrap">
-<span class="eyebrow">Vitrine</span>
-<h2 class="h2">Sites que já entregamos — veja ao vivo</h2>
+<span class="eyebrow rv">Vitrine</span>
+<h2 class="h2 rv d1">Sites que já entregamos — veja ao vivo</h2>
 <div class="showcase">
 <a class="work" href="https://site-gabriela-kanaan.vercel.app" target="_blank" rel="noopener"><div class="shot"><img src="sites-imagens/gabriela.webp" alt="Site de Gabriela Kanaan" loading="lazy" width="806" height="383" /></div><div class="meta"><div class="cat">Psicologia clínica</div><div class="nm">Gabriela Kanaan</div><div class="loc">Pelotas/RS</div><div class="go">ver site ao vivo ↗</div></div></a>
 <div class="work"><div class="shot"><img src="sites-imagens/solange.webp" alt="Site de Solange Kappes" loading="lazy" width="806" height="385" /></div><div class="meta"><div class="cat">Psicologia</div><div class="nm">Solange Kappes</div><div class="loc">Gramado/RS</div><div class="go mut" style="color:#7B7B86">no ar · link em breve</div></div></div>
@@ -225,10 +316,50 @@ html{scroll-behavior:auto}
 </div>
 </section>
 
+<section id="faq" data-screen-label="Dúvidas">
+<div class="wrap">
+<span class="eyebrow rv">Dúvidas</span>
+<h2 class="h2 rv d1">O que todo mundo pergunta antes</h2>
+<div class="acc rv d2">
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa1"><span>É grátis mesmo? Onde está a pegadinha?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa1"><div class="a-in"><p>Não tem pegadinha. A gente cria e publica o site antes de você pagar qualquer coisa, porque quem vê o próprio site pronto entende o valor na hora — funciona melhor pra nós do que ficar explicando. Se você não quiser ativar, é só ignorar. Não pedimos cartão em nenhum momento da prévia.</p></div></div>
+</div>
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa2"><span>Preciso mandar fotos, textos ou preencher briefing?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa2"><div class="a-in"><p>Pra prévia, não. A gente usa o que já é público no seu Instagram e no Google: suas fotos, sua bio, os serviços que você lista. Se você quiser ativar o site depois, aí sim trocamos as fotos por versões em alta e ajustamos os textos do seu jeito.</p></div></div>
+</div>
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa3"><span>Quanto tempo leva pra eu ver?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa3"><div class="a-in"><p>No mesmo dia. Você deixa o @ e o WhatsApp, e a gente te chama com o link do site já no ar — não é print nem imagem, é o site funcionando de verdade, que você abre no celular e no computador.</p></div></div>
+</div>
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa4"><span>Se eu gostar, o que exatamente eu pago?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa4"><div class="a-in"><p>R$ 500 de ativação, em 2x de R$ 250, que cobre publicar o site, configurar o domínio e fazer os ajustes finais. Depois R$ 139 por mês de hospedagem, segurança e as edições que você pedir ao longo do mês. Sem fidelidade — cancela quando quiser.</p></div></div>
+</div>
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa5"><span>O site fica no meu nome? E se eu quiser sair depois?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa5"><div class="a-in"><p>O domínio fica no seu nome — você pode comprar direto no Registro.br ou deixar que a gente cuide disso. Se um dia quiser sair, o domínio é seu e vai junto, e a gente entrega os arquivos do site. Ninguém fica refém.</p></div></div>
+</div>
+
+<div class="qa">
+<h3><button class="q" type="button" aria-expanded="false" aria-controls="fa6"><span>Atendem fora do Rio Grande do Sul?</span><span class="chev" aria-hidden="true"></span></button></h3>
+<div class="a" id="fa6"><div class="a-in"><p>Sim. A MX Digital fica em Lajeado/RS, mas o processo inteiro acontece pelo WhatsApp — já entregamos site pra profissional de outras cidades e estados sem nunca marcar reunião.</p></div></div>
+</div>
+
+</div>
+</div>
+</section>
+
 <section class="final" data-screen-label="CTA final">
 <div class="wrap">
-<p class="pain">Cada dia sem site é um paciente escolhendo <span class="hl">quem apareceu melhor que você.</span></p>
-<p class="sub2">Dá pra resolver isso hoje — de graça, e sem compromisso.</p>
+<p class="pain rv">Cada dia sem site é um paciente escolhendo <span class="hl">quem apareceu melhor que você.</span></p>
+<p class="sub2 rv d1">Dá pra resolver isso hoje — de graça, e sem compromisso.</p>
 <a class="btn big" href="#form" style="max-width:340px;color:#000000">Quero ver meu site grátis →</a>
 </div>
 </section>
@@ -237,6 +368,92 @@ html{scroll-behavior:auto}
 <footer><div class="wrap">MX Digital · Lajeado/RS · sites para psicólogos e terapeutas</div></footer>
 
 <script>
+(function(){
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* altura real do header, usada pelo sticky stack no mobile */
+  var header = document.querySelector('header');
+  function medeHeader(){
+    document.documentElement.style.setProperty('--hh', header.offsetHeight + 'px');
+  }
+  medeHeader();
+  addEventListener('resize', medeHeader, {passive:true});
+
+  /* ---- FAQ: acordeão, um aberto por vez ---- */
+  var perguntas = [].slice.call(document.querySelectorAll('.q'));
+  perguntas.forEach(function(btn){
+    var painel = document.getElementById(btn.getAttribute('aria-controls'));
+    var item = btn.closest('.qa');
+    painel.setAttribute('inert','');
+    btn.addEventListener('click', function(){
+      var abrindo = !item.classList.contains('open');
+      perguntas.forEach(function(o){
+        var oi = o.closest('.qa');
+        oi.classList.remove('open');
+        o.setAttribute('aria-expanded','false');
+        document.getElementById(o.getAttribute('aria-controls')).setAttribute('inert','');
+      });
+      if (abrindo){
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        painel.removeAttribute('inert');
+      }
+    });
+  });
+
+  if (reduz) return;
+
+  /* ---- reveal ao entrar na tela ---- */
+  var alvos = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:.12});
+    alvos.forEach(function(el){ obs.observe(el); });
+  } else {
+    alvos.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- barra de progresso + parallax do brilho do hero ---- */
+  var prog = document.getElementById('prog'), tick = false;
+  function aoRolar(){
+    var y = window.scrollY || 0;
+    var max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(y/max,1) : 0) + ')';
+    if (y < 900) document.documentElement.style.setProperty('--sy', y + 'px');
+    tick = false;
+  }
+  addEventListener('scroll', function(){
+    if (!tick){ tick = true; requestAnimationFrame(aoRolar); }
+  }, {passive:true});
+  aoRolar();
+
+  /* ---- tilt 3D: só em quem tem mouse de verdade ---- */
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.querySelectorAll('.step, .work').forEach(function(card){
+      card.addEventListener('pointermove', function(e){
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left)/r.width - .5;
+        var py = (e.clientY - r.top)/r.height - .5;
+        card.classList.add('t-live');
+        card.style.setProperty('--rx', (-py*6).toFixed(2)+'deg');
+        card.style.setProperty('--ry', (px*8).toFixed(2)+'deg');
+        card.style.setProperty('--ty', '-3px');
+        card.style.setProperty('--mx', ((px+.5)*100).toFixed(1)+'%');
+        card.style.setProperty('--my', ((py+.5)*100).toFixed(1)+'%');
+      });
+      card.addEventListener('pointerleave', function(){
+        card.classList.remove('t-live');
+        card.style.setProperty('--rx','0deg');
+        card.style.setProperty('--ry','0deg');
+        card.style.setProperty('--ty','0px');
+      });
+    });
+  }
+})();
+
 document.getElementById('form').addEventListener('submit',function(e){
   e.preventDefault();
   var f=e.target,ig=f.ig.value.trim(),wa=f.wa.value.trim();
