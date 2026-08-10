@@ -1,0 +1,9 @@
+{
+  "name": "mande-seu",
+  "private": true,
+  "description": "Landing page Manda seu @ — MX Digital. Site estático, sem build.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node tests/form.e2e.mjs"
+  }
+}

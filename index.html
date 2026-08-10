@@ -3,21 +3,26 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MX Digital — Manda seu @. A gente te manda um site.</title>
+<title>MX Digital — Manda seu @. A gente te entrega um site profissional.</title>
 <meta name="description" content="Deixe seu @ do Instagram e receba a prévia do seu site novo no WhatsApp ainda hoje — de graça e sem compromisso." />
 <meta name="theme-color" content="#080808" />
+<link rel="canonical" href="https://mande-seu.vercel.app/" />
 <link rel="icon" href="assets/logo-mx.png" />
 <link rel="apple-touch-icon" href="assets/logo-mx.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="MX Digital" />
 <meta property="og:locale" content="pt_BR" />
-<meta property="og:title" content="Manda seu @. A gente te manda um site." />
+<meta property="og:title" content="Manda seu @. A gente te entrega um site profissional." />
 <meta property="og:description" content="Site profissional pro seu negócio, sem reunião e sem briefing gigante. Receba a prévia no WhatsApp ainda hoje." />
-<meta property="og:image" content="assets/logo-mx.png" />
+<meta property="og:image" content="https://mande-seu.vercel.app/assets/logo-mx.png" />
+<meta property="og:image:width" content="576" />
+<meta property="og:image:height" content="573" />
+<meta property="og:image:alt" content="MX Digital" />
+<meta property="og:url" content="https://mande-seu.vercel.app/" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Manda seu @. A gente te manda um site." />
+<meta name="twitter:title" content="Manda seu @. A gente te entrega um site profissional." />
 <meta name="twitter:description" content="Site profissional sem reunião e sem briefing. Prévia no WhatsApp ainda hoje." />
-<meta name="twitter:image" content="assets/logo-mx.png" />
+<meta name="twitter:image" content="https://mande-seu.vercel.app/assets/logo-mx.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -48,7 +53,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.86);backdrop-filt
 .bname i{font-style:italic;color:var(--mut);font-weight:400}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--grad);color:#fff;font-weight:600;font-size:14px;border:0;border-radius:999px;padding:12px 20px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px -10px rgba(109,92,245,.9);transition:transform .15s ease,filter .15s ease}
 .btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
-.btn.sm{padding:9px 15px;font-size:13px}
+.btn.sm{padding:9px 16px;font-size:13px;min-height:44px}
 .btn.big{width:100%;padding:17px 24px;font-size:16px}
 /* hero */
 .hero{padding:52px 0 76px;border:0;position:relative}
@@ -100,7 +105,28 @@ input::placeholder{color:#5F5F6B}
 input:focus{border-color:var(--pp)}
 .fields{display:flex;flex-direction:column;gap:16px}
 .trust{margin-top:14px;font-size:12px;color:#7B7B86;text-align:center;line-height:1.5}
-.ok{display:none;text-align:center;padding:10px 0 2px;font-size:14px;color:#CFC8FF}
+.trust a{color:#9A9AA6;border-bottom:1px solid rgba(255,255,255,.18)}
+.trust a:hover{color:var(--fg)}
+.ok{text-align:center;padding:10px 0 2px}
+.ok-msg{font-size:14.5px;color:#CFC8FF;line-height:1.5}
+.wa-btn{margin-top:14px;background:none;border:1px solid rgba(139,124,248,.45);color:#CFC8FF;box-shadow:none;font-size:14px}
+.wa-btn:hover{background:rgba(109,92,245,.1);color:#fff}
+/* erros de campo */
+.err{margin-top:7px;font-size:12.5px;color:#FF9E9E;line-height:1.4}
+.form-err{margin-top:14px;text-align:center}
+input[aria-invalid="true"]{border-color:#C4544F}
+input[aria-invalid="true"]:focus{border-color:#FF9E9E}
+/* botão com estado de carregando */
+.btn[disabled]{opacity:.65;cursor:not-allowed}
+.btn[disabled]:hover{transform:none;filter:none}
+.spin{display:none;width:16px;height:16px;border-radius:50%;border:2px solid rgba(0,0,0,.25);border-top-color:currentColor;animation:spin .7s linear infinite}
+.btn.loading .lbl{opacity:.75}
+.btn.loading .spin{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* três benefícios acima da dobra */
+.perks{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.perks li{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;padding:7px 14px;font-size:13px;color:#C6C6CE;font-weight:500}
+.perks .pk{color:var(--pp2);font-weight:700}
 /* steps */
 .grid{display:grid;gap:12px;margin-top:26px}
 .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px}
@@ -137,12 +163,23 @@ input:focus{border-color:var(--pp)}
 .final p.sub2{font-size:14.5px;color:var(--mut);max-width:32ch;margin:0 auto 26px}
 footer{padding:30px 0 44px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:#63636E}
 
+/* ---------- nota de transparência do preço ---------- */
+.transp{margin:14px 0;padding:13px 16px;border:1px dashed rgba(139,124,248,.4);border-radius:12px;background:rgba(109,92,245,.05);font-size:13.5px;color:#CFC8FF;text-align:center;line-height:1.5}
+
+/* ---------- depoimentos ---------- */
+.deps{display:grid;gap:12px;margin-top:26px}
+.dep{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px}
+.dep blockquote{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;line-height:1.3;color:var(--fg)}
+.dep figcaption{margin-top:12px;font-size:13px;color:var(--mut)}
+.dep figcaption b{color:#C6C6CE;font-weight:600;display:block}
+
 /* ---------- FAQ (acordeão) ---------- */
 .acc{margin-top:26px;border-top:1px solid var(--line)}
 .qa{border-bottom:1px solid var(--line)}
 .q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:none;border:0;padding:19px 2px;cursor:pointer;font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;font-weight:600;color:var(--fg);text-align:left;line-height:1.2}
 .q:hover{color:#CFC8FF}
 .q:focus-visible{outline:2px solid var(--pp2);outline-offset:3px;border-radius:6px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--pp2);outline-offset:3px}
 .chev{flex:none;width:20px;height:20px;position:relative;margin-top:3px}
 .chev:before,.chev:after{content:"";position:absolute;top:9px;left:3px;width:14px;height:2px;border-radius:2px;background:var(--pp2);transition:transform .3s cubic-bezier(.22,.7,.3,1)}
 .chev:after{transform:rotate(90deg)}
@@ -156,7 +193,7 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);text-align:center;fo
 .proof{display:flex;justify-content:center;margin-top:14px}
 .gpill{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);border-radius:999px;padding:8px 16px;font-size:12.5px;color:#C6C6CE}
 .gpill b{color:var(--fg);font-weight:600}
-a.gpill{color:#C6C6CE;transition:border-color .18s,color .18s}
+a.gpill{color:#C6C6CE;transition:border-color .18s,color .18s;min-height:44px}
 a.gpill:hover{border-color:rgba(139,124,248,.45);color:var(--fg)}
 .gpill .st{color:var(--pp2);letter-spacing:1px;font-size:11px}
 #google-proof .st{color:#F5C451}
@@ -200,6 +237,7 @@ section{padding:96px 0}
 .hero .eyebrow{display:block;text-align:center}
 .hero .h1{text-align:center}
 .hero .sub{text-align:center;margin-left:auto;margin-right:auto}
+.perks{justify-content:center}
 
 /* grid-auto-rows:1fr iguala a altura das 4 linhas pela mais alta. Sem isso o
    card de trás, sendo mais alto, aparece por baixo do da frente e o
@@ -239,26 +277,44 @@ html{scroll-behavior:auto}
 <header>
 <div class="wrap hd">
 <div class="brand"><img class="mark" src="assets/logo-mx.png" alt="MX Digital" width="34" height="34" /><div class="bname">MX <i>Digital</i></div></div>
-<a class="btn sm" href="#form" style="color:#000000">Quero ver meu site grátis</a>
+<a class="btn sm js-cta" href="#form" style="color:#000000">Quero ver meu site grátis</a>
 </div>
 </header>
 
 <main>
 <div class="wrap hero" data-screen-label="Hero">
 <span class="eyebrow">Manda seu @</span>
-<h1 class="h1">Manda seu @.<br />A gente te manda <em>um site.</em></h1>
-<p class="sub">Site profissional pro seu negócio, sem reunião, sem briefing gigante.</p>
+<h1 class="h1">Manda seu @.<br />A gente te entrega <em>um site profissional.</em></h1>
+<p class="sub">Receba uma prévia real, publicada e funcionando no celular e no computador — ainda hoje.</p>
 
-<form class="card form" id="form" data-screen-label="Formulário">
+<ul class="perks" aria-label="Como funciona a prévia">
+<li><span class="pk" aria-hidden="true">✓</span>Sem cartão</li>
+<li><span class="pk" aria-hidden="true">✓</span>Sem reunião</li>
+<li><span class="pk" aria-hidden="true">✓</span>Você vê antes de decidir</li>
+</ul>
+
+<form class="card form" id="form" data-screen-label="Formulário" method="post" action="/api/lead" novalidate>
 <h2 class="h3f">Receba a prévia do seu site novo no WhatsApp <span class="hl">ainda hoje.</span></h2>
 <p class="mut" style="font-size:14.5px;margin-bottom:22px">Se quiser ficar com ele e fazer alterações quando quiser, é só ativar. <b style="color:var(--fg);font-weight:600">Você vê o site pronto antes de decidir.</b></p>
 <div class="fields">
-<div><label for="ig">Seu @ do Instagram</label><input id="ig" name="ig" type="text" placeholder="@seunome ou seu nome completo" autocomplete="off" required /></div>
-<div><label for="wa">Seu WhatsApp</label><input id="wa" name="wa" type="tel" placeholder="(51) 99999-9999" autocomplete="tel" required /></div>
-<button class="btn big" type="submit">Quero ver meu site grátis →</button>
+<div>
+<label for="ig">Seu @ do Instagram</label>
+<input id="ig" name="instagram" type="text" placeholder="@seunome ou seu nome completo" autocomplete="off" autocapitalize="none" spellcheck="false" required aria-describedby="ig-err" />
+<p class="err" id="ig-err" hidden></p>
 </div>
-<p class="ok" id="ok" role="status">Recebido. Vamos te chamar no WhatsApp com a prévia ainda hoje.</p>
-<p class="trust">Sem cartão de crédito · sem compromisso · seus dados não são compartilhados</p>
+<div>
+<label for="wa">Seu WhatsApp</label>
+<input id="wa" name="whatsapp" type="tel" inputmode="tel" placeholder="(51) 99999-9999" autocomplete="tel" required aria-describedby="wa-err" />
+<p class="err" id="wa-err" hidden></p>
+</div>
+<button class="btn big" id="submit" type="submit"><span class="lbl">Quero ver meu site grátis</span><span class="spin" aria-hidden="true"></span></button>
+</div>
+<p class="err form-err" id="form-err" role="alert" hidden></p>
+<div class="ok" id="ok" role="status" aria-live="polite" hidden>
+<p class="ok-msg">Recebido. Vamos analisar seu perfil e chamar você no WhatsApp com a prévia ainda hoje.</p>
+<a class="btn wa-btn" id="wa-open" href="#" target="_blank" rel="noopener">Falar agora no WhatsApp</a>
+</div>
+<p class="trust">Sem cartão de crédito · sem compromisso · <a href="/privacidade.html">como tratamos seus dados</a></p>
 </form>
 
 <div style="display:flex;justify-content:center;margin-top:22px"><span class="badge"><i></i>Instagram + WhatsApp · Prévia ainda hoje</span></div>
@@ -312,11 +368,13 @@ html{scroll-behavior:auto}
 <div class="li"><span class="tick">✓</span><span><b>Sem contrato, sem fidelidade</b> — se não quiser, é só ignorar</span></div>
 <div class="li"><span class="tick">✓</span><span><b>Por que fazemos assim?</b> Confiamos no resultado — quem vê o próprio site pronto entende o valor na hora.</span></div>
 </div>
+<p class="transp rv d2">A prévia é gratuita. O pagamento só acontece se você decidir ativar.</p>
 <div class="plan pay rv d3">
 <h3>Se gostar e quiser ativar</h3>
 <div class="li"><span class="tick">◆</span><span><span class="price">R$ 500 <small>em 2x de R$ 250</small></span>Ativação: site publicado, domínio configurado e ajustes finais.</span></div>
 <div class="li"><span class="tick">◆</span><span><span class="price">R$ 139 <small>/mês</small></span>Hospedagem, segurança e edições mensais quando você quiser.</span></div>
-<div class="li"><span class="tick">◆</span><span><b>Cancele quando quiser.</b></span></div>
+<div class="li"><span class="tick">◆</span><span><b>Domínio no seu nome.</b> Você compra no Registro.br (cerca de R$ 40/ano) ou a gente cuida pra você — em qualquer caso ele é seu e vai junto se você sair.</span></div>
+<div class="li"><span class="tick">◆</span><span><b>Cancele quando quiser</b>, sem multa e sem fidelidade. A mensalidade para no mês seguinte.</span></div>
 </div>
 </div>
 </div>
@@ -331,6 +389,21 @@ html{scroll-behavior:auto}
 <a class="work" href="https://solange-kappes.vercel.app" target="_blank" rel="noopener"><div class="shot"><img src="sites-imagens/solange.webp" alt="Site de Solange Kappes" loading="lazy" width="806" height="385" /></div><div class="meta"><div class="cat">Psicologia</div><div class="nm">Solange Kappes</div><div class="loc">Gramado/RS</div><div class="go">ver site ao vivo ↗</div></div></a>
 <a class="work" href="https://cristianastringhi.com.br" target="_blank" rel="noopener"><div class="shot"><img src="sites-imagens/cristiana.webp" alt="Site de Cristiana Stringhi" loading="lazy" width="806" height="385" /></div><div class="meta"><div class="cat">Terapia holística</div><div class="nm">Cristiana Stringhi</div><div class="loc">ao vivo</div><div class="go">ver site ao vivo ↗</div></div></a>
 </div>
+</div>
+</section>
+
+<section id="depoimentos" data-screen-label="Depoimentos" hidden>
+<div class="wrap">
+<span class="eyebrow rv">Quem já recebeu</span>
+<h2 class="h2 rv d1">O que dizem os sites entregues</h2>
+<!-- ===================================================================
+     COMPONENTE DE DEPOIMENTOS — a seção inteira está hidden porque a
+     lista abaixo está vazia. Nao inventei depoimento nenhum.
+     Para publicar: preencha DEPOIMENTOS no <script> do fim do arquivo
+     com falas REAIS e autorizadas pelo cliente. O JS remove o hidden
+     sozinho assim que houver ao menos um item.
+     =================================================================== -->
+<div class="deps rv d2" id="deps"></div>
 </div>
 </section>
 
@@ -378,7 +451,7 @@ html{scroll-behavior:auto}
 <div class="wrap">
 <p class="pain rv">Cada dia sem site é um paciente escolhendo <span class="hl">quem apareceu melhor que você.</span></p>
 <p class="sub2 rv d1">Dá pra resolver isso hoje — de graça, e sem compromisso.</p>
-<a class="btn big" href="#form" style="max-width:340px;color:#000000">Quero ver meu site grátis →</a>
+<a class="btn big js-cta" href="#form" style="max-width:340px;color:#000000">Quero ver meu site grátis</a>
 </div>
 </section>
 </main>
@@ -472,14 +545,191 @@ html{scroll-behavior:auto}
   }
 })();
 
-document.getElementById('form').addEventListener('submit',function(e){
-  e.preventDefault();
-  var f=e.target,ig=f.ig.value.trim(),wa=f.wa.value.trim();
-  var msg='Oi! Quero ver a prévia do meu site.\nInstagram: '+ig+'\nWhatsApp: '+wa;
-  window.open('https://wa.me/5551991580526?text='+encodeURIComponent(msg),'_blank','noopener');
-  f.querySelector('.fields').style.display='none';
-  document.getElementById('ok').style.display='block';
-});
+/* =====================================================================
+   Depoimentos — preencha com falas REAIS e autorizadas.
+   Formato: { texto, nome, contexto }. Vazio = seção fica escondida.
+   ===================================================================== */
+var DEPOIMENTOS = [];
+
+(function(){
+  'use strict';
+
+  /* ---------- config pública (Pixel etc.) vinda do servidor ---------- */
+  var CFG = { metaPixelId: null, whatsappNumber: '5551991580526' };
+
+  /* ---------- UTMs ----------
+     Lidas da URL na primeira visita e guardadas em sessionStorage, pra
+     sobreviver à navegação interna sem nunca voltar pra barra de endereço. */
+  var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  var STORE = 'mx_utm';
+
+  function lerUtms(){
+    var guardado = {};
+    try { guardado = JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch(e){}
+    var q = new URLSearchParams(location.search), novo = false;
+    UTM_KEYS.forEach(function(k){
+      var v = q.get(k);
+      if (v && v.trim()){ guardado[k] = v.trim().slice(0,255); novo = true; }
+    });
+    if (novo){
+      try { sessionStorage.setItem(STORE, JSON.stringify(guardado)); } catch(e){}
+      /* Tira as UTMs da barra de endereço: já estão guardadas, e assim não
+         vazam por referrer nem viajam junto se a pessoa copiar o link.
+         Outros parâmetros da query são preservados. */
+      if (history.replaceState){
+        UTM_KEYS.forEach(function(k){ q.delete(k); });
+        var resto = q.toString();
+        history.replaceState(null, '', location.pathname + (resto ? '?' + resto : '') + location.hash);
+      }
+    }
+    return guardado;
+  }
+  var UTM = lerUtms();
+
+  /* ---------- camada de eventos de conversão ----------
+     Um ponto só. Se o Pixel não estiver configurado, vira no-op silencioso —
+     nada quebra e nenhum ID falso é usado. */
+  function track(evento, dados){
+    var payload = dados || {};
+    try {
+      if (typeof window.fbq === 'function') {
+        var padrao = ['PageView','ViewContent','Lead','CompleteRegistration','Purchase'];
+        window.fbq(padrao.indexOf(evento) >= 0 ? 'track' : 'trackCustom', evento, payload);
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: evento }, payload));
+    } catch(e){}
+  }
+  // eventos preparados pra integração futura, disparados pelo backend/CRM:
+  window.mxTrack = track;                                    // track('PreviewSent') / track('ActivationPaid')
+
+  function carregarPixel(id){
+    if (!id) return;
+    /* eslint-disable */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+    window.fbq('init', id);
+    track('PageView');
+    track('ViewContent', { content_name: 'oferta-previa-gratis' });
+  }
+
+  fetch('/api/config', { headers: { accept: 'application/json' } })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(c){
+      if (!c) return;
+      CFG = Object.assign(CFG, c);
+      carregarPixel(CFG.metaPixelId);
+    })
+    .catch(function(){ /* sem config, segue sem Pixel */ });
+
+  /* ---------- depoimentos ---------- */
+  (function(){
+    var alvo = document.getElementById('deps');
+    if (!alvo || !DEPOIMENTOS.length) return;
+    alvo.innerHTML = DEPOIMENTOS.map(function(d){
+      var esc = function(t){ var p = document.createElement('p'); p.textContent = t || ''; return p.innerHTML; };
+      return '<figure class="dep"><blockquote>“' + esc(d.texto) + '”</blockquote>' +
+             '<figcaption><b>' + esc(d.nome) + '</b>' + esc(d.contexto || '') + '</figcaption></figure>';
+    }).join('');
+    document.getElementById('depoimentos').hidden = false;
+  })();
+
+  /* ---------- CTAs levam ao formulário e focam sem recarregar ---------- */
+  var form = document.getElementById('form');
+  var campoIg = document.getElementById('ig');
+  [].forEach.call(document.querySelectorAll('.js-cta'), function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function(){ campoIg.focus({ preventScroll: true }); }, 320);
+    });
+  });
+
+  /* ---------- formulário ---------- */
+  var btn      = document.getElementById('submit');
+  var okBox    = document.getElementById('ok');
+  var erroGeral= document.getElementById('form-err');
+  var waBtn    = document.getElementById('wa-open');
+  var campoWa  = document.getElementById('wa');
+  var enviando = false, jaEnviado = false, marcouStart = false;
+
+  // FormStart no primeiro preenchimento
+  [campoIg, campoWa].forEach(function(c){
+    c.addEventListener('input', function(){
+      if (!marcouStart && c.value.trim()){ marcouStart = true; track('FormStart'); }
+    }, { passive: true });
+  });
+
+  function mostrarErro(campo, msg){
+    var box = document.getElementById(campo.id + '-err');
+    if (msg){ box.textContent = msg; box.hidden = false; campo.setAttribute('aria-invalid','true'); }
+    else { box.textContent = ''; box.hidden = true; campo.removeAttribute('aria-invalid'); }
+  }
+  function limparErros(){ mostrarErro(campoIg, ''); mostrarErro(campoWa, ''); erroGeral.hidden = true; }
+  function carregando(on){
+    enviando = on;
+    btn.disabled = on;                       // trava o duplo envio
+    btn.classList.toggle('loading', on);
+    btn.setAttribute('aria-busy', on ? 'true' : 'false');
+  }
+
+  /* A mensagem do WhatsApp é genérica de propósito: o @ e o telefone já
+     foram enviados pelo POST e não podem aparecer numa URL, que fica no
+     histórico do navegador e pode vazar por referrer. */
+  function linkWhats(){
+    var msg = 'Oi! Acabei de pedir a prévia do meu site pelo site de vocês.';
+    return 'https://wa.me/' + CFG.whatsappNumber + '?text=' + encodeURIComponent(msg);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (enviando || jaEnviado) return;       // guarda contra duplicidade
+    limparErros();
+
+    var instagram = campoIg.value.trim();
+    var whatsapp  = campoWa.value.trim();
+    var falhou = false;
+    if (!instagram){ mostrarErro(campoIg, 'Informe seu @ do Instagram ou seu nome.'); falhou = true; }
+    if (!whatsapp){ mostrarErro(campoWa, 'Informe seu WhatsApp com DDD.'); falhou = true; }
+    if (falhou){ (instagram ? campoWa : campoIg).focus(); return; }
+
+    carregando(true);
+
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instagram: instagram, whatsapp: whatsapp, utm: UTM })
+    })
+      .then(function(r){ return r.json().then(function(j){ return { status: r.status, body: j }; }); })
+      .then(function(res){
+        if (res.status === 422 && res.body.errors){
+          if (res.body.errors.instagram) mostrarErro(campoIg, res.body.errors.instagram);
+          if (res.body.errors.whatsapp)  mostrarErro(campoWa, res.body.errors.whatsapp);
+          (res.body.errors.instagram ? campoIg : campoWa).focus();
+          return;
+        }
+        if (!res.body.ok) throw new Error('falha');
+
+        jaEnviado = true;
+        // Lead só depois do backend confirmar que gravou
+        if (res.body.stored) track('Lead', { content_name: 'previa-gratis' });
+        form.querySelector('.fields').style.display = 'none';
+        waBtn.href = linkWhats();
+        okBox.hidden = false;
+        okBox.focus && okBox.focus();
+      })
+      .catch(function(){
+        erroGeral.textContent = 'Não conseguimos enviar agora. Tente de novo ou chame a gente no WhatsApp.';
+        erroGeral.hidden = false;
+        waBtn.href = linkWhats();
+      })
+      .then(function(){ if (!jaEnviado) carregando(false); });
+  });
+})();
 </script>
 </body>
 </html>
